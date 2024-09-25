@@ -22,6 +22,14 @@ namespace eShop.Domain.Orders
             CustomerId = customerId;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Order"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF Core.
+        /// </remarks>
+        private Order() { }
+
         public static Result<Order> Create(Guid customerId)
         {
             if (customerId == Guid.Empty)

@@ -8,32 +8,40 @@ namespace eShop.Domain.Customers
     {
         private readonly List<Order> _orders = [];
 
+        private readonly HashSet<Address> _deliveryAddresses = [];
+
         public FirstName FirstName { get; private set; }
 
         public LastName LastName { get; private set; }
 
         public EmailAddress Email { get; private set; }
 
-        public Address HomeAddress { get; private set; }
-
         public IReadOnlyCollection<Order> Orders => _orders;
+
+        public IReadOnlyCollection<Address> DeliveryAddresses => _deliveryAddresses;
 
         private Customer(
             FirstName firstName,
             LastName lastName,
-            EmailAddress emailAddress,
-            Address homeAddress)
+            EmailAddress emailAddress)
             : base(Guid.NewGuid())
         {
             FirstName = firstName;
             LastName = lastName;
             Email = emailAddress;
-            HomeAddress = homeAddress;
         }
 
-        public static Customer Create(FirstName firstName, LastName lastName, EmailAddress email, Address homeAddress)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Customer"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF Core.
+        /// </remarks>
+        private Customer() { }
+
+        public static Customer Create(FirstName firstName, LastName lastName, EmailAddress email)
         {
-            return new Customer(firstName, lastName, email, homeAddress);
+            return new Customer(firstName, lastName, email);
         }
 
         public Result<Order> CreateOrder()
@@ -56,6 +64,16 @@ namespace eShop.Domain.Customers
             {
                 _orders.Remove(item);
             }
+        }
+
+        public void AddDeliveryAddress(Address newAddress)
+        {
+            _deliveryAddresses.Add(newAddress);
+        }
+
+        public void RemoveDeliveryAddress(Address address)
+        {
+            _deliveryAddresses.Remove(address);
         }
     }
 }

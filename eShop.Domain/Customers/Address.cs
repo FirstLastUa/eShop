@@ -23,6 +23,14 @@ namespace eShop.Domain.Customers
             ZipCode = zipcode;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Address"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF Core.
+        /// </remarks>
+        private Address() { }
+
         public static Result<Address> Create(string street, string city, string state, string country, string zipcode)
         {
             //TODO: Add validation

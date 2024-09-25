@@ -18,6 +18,14 @@ namespace eShop.Domain.Orders
             Quantity = quantity;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderItem"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF Core.
+        /// </remarks>
+        private OrderItem() { }
+
         public static Result<OrderItem> Create(Guid productId, int quantity)
         {
             if (productId == Guid.Empty)

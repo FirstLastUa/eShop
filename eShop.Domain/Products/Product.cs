@@ -22,6 +22,14 @@ namespace eShop.Domain.Products
             IsAvailable = isAvailable;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Product"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF Core.
+        /// </remarks>
+        private Product() { }
+
         public static Result<Product> Create(string name, string description, Money price, bool isAvailable)
         {
             return Result.Create(name, ProductErrors.NameIsNull)
