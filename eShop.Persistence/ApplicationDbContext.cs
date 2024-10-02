@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eShop.Persistence
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
 
@@ -15,15 +15,12 @@ namespace eShop.Persistence
 
         public DbSet<Product> Products { get; set; }
 
-        public ApplicationDbContext(DbContextOptions options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql();
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

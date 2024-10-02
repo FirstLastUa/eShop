@@ -20,7 +20,9 @@ namespace eShop.Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("eShopDatabase");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            var assembly = typeof(ApplicationDbContext).Assembly.GetName();
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseNpgsql(connectionString, x => x.MigrationsAssembly(assembly.Name)));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
