@@ -19,7 +19,8 @@ namespace eShop.Persistence
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("eShopDatabase");
+            var connectionString = configuration.GetConnectionString("eShopDatabase")
+                ?? throw new ApplicationException("PostgreSQL connection string is not found");
             var assembly = typeof(ApplicationDbContext).Assembly.GetName();
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseNpgsql(connectionString, x => x.MigrationsAssembly(assembly.Name)));

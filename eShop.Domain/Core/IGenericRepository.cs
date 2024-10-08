@@ -5,7 +5,7 @@ namespace eShop.Domain.Core
     public interface IGenericRepository<TEntity>
         where TEntity : Entity
     {
-        Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
         void Add(TEntity entity);
 

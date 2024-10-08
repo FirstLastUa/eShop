@@ -8,7 +8,7 @@ namespace eShop.Application.Customers.Create
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-        async Task<Customer> IRequestHandler<CreateCustomerCommand, Customer>.Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Customer> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var firstName = FirstName.Create(request.FirstName);
             var lastName = LastName.Create(request.LastName);
