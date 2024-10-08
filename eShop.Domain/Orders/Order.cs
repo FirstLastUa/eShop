@@ -39,6 +39,8 @@ namespace eShop.Domain.Orders
 
             var order = new Order(customerId);
 
+            order.RaiseDomainEvent(new OrderCreatedDomainEvent(Guid.NewGuid(), order.Id));
+
             return Result.Success(order);
         }
 
@@ -57,6 +59,7 @@ namespace eShop.Domain.Orders
             if (item != null)
             {
                 _orderItems.Remove(item);
+                RaiseDomainEvent(new OrderItemRemovedEvent(Guid.NewGuid(), Id, item.Id));
             }
         }
     }
