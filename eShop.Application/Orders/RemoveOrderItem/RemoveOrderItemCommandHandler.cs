@@ -17,7 +17,7 @@ namespace eShop.Application.Orders.RemoveOrderItem
                 return;
             }
 
-            order.RemoveItem(request.OrderId, _unitOfWork.OrderRepository);
+            order.RemoveItem(request.OrderId);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
