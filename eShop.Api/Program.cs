@@ -9,7 +9,20 @@ namespace eShop.Api
     {
         public static void Main(string[] args)
         {
-            var app = CreateWebApplication(args);
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.AddServiceDefaults();
+
+            builder.Services.AddApplication();
+            builder.Services.AddPersistence(builder.Configuration);
+
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            app.MapDefaultEndpoints();
 
             if (app.Environment.IsDevelopment())
             {
@@ -26,19 +39,6 @@ namespace eShop.Api
             app.MapControllers();
 
             app.Run();
-        }
-
-        private static WebApplication CreateWebApplication(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddApplication();
-            builder.Services.AddPersistence(builder.Configuration);
-
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            return builder.Build();
         }
     }
 }

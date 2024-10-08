@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eShop.Application\eShop.Application.csproj" />
+    <ProjectReference Include="..\eShop.Aspire\eShop.Aspire.ServiceDefaults\eShop.Aspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\eShop.Persistence\eShop.Persistence.csproj" />
   </ItemGroup>
 
