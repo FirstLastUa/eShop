@@ -3,9 +3,8 @@ using eShop.Domain.Customers;
 using eShop.Domain.Orders;
 using eShop.Domain.Products;
 using eShop.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace eShop.Persistence
 {
@@ -17,14 +16,17 @@ namespace eShop.Persistence
     /// <returns>The same service collection.</returns>
     public static class DependencyInjection
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+        public static IHostApplicationBuilder AddPersistence(this IHostApplicationBuilder builder)
         {
-            var connectionString = configuration.GetConnectionString("eShopDatabase")
-                ?? throw new ApplicationException("PostgreSQL connection string is not found");
-            var assembly = typeof(ApplicationDbContext).Assembly.GetName();
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseNpgsql(connectionString, x => x.MigrationsAssembly(assembly.Name)));
+            builder.AddNpgsqlDbContext<ApplicationDbContext>("eShopDb");
 
+            builder.Services.AddRepositories();
+
+            return builder;
+        }
+
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

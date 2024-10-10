@@ -1,5 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.eShop_Api>("eshop-api");
+var postgres = builder.AddPostgres("postgres").WithPgAdmin();
+var eShopDb = postgres.AddDatabase("eShopDb");
+
+builder.AddProject<Projects.eShop_Api>("eshop-api")
+    .WithReference(eShopDb);
 
 builder.Build().Run();

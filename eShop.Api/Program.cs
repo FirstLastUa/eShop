@@ -14,7 +14,7 @@ namespace eShop.Api
             builder.AddServiceDefaults();
 
             builder.Services.AddApplication();
-            builder.Services.AddPersistence(builder.Configuration);
+            builder.AddPersistence();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
