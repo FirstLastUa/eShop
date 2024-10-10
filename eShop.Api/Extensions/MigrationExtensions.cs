@@ -12,6 +12,7 @@ namespace eShop.Api.Extensions
             using ApplicationDbContext dbContext =
                 scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+            // https://github.com/npgsql/npgsql/issues/3955#issuecomment-1065172063
             dbContext.Database.Migrate();
         }
     }
